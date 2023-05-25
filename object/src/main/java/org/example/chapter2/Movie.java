@@ -2,7 +2,7 @@ package org.example.chapter2;
 
 import java.time.Duration;
 
-public class Movie {
+public class Movie{
     private String title;
     private Duration duration;
     private Money fee;
@@ -18,8 +18,14 @@ public class Movie {
     public Money getFee() {
         return fee;
     }
-
     public Money calculateMovieFee(Screening screening) {
+        if (discountPolicy == null) {
+            return fee;
+        }
         return fee.minus(discountPolicy.calculateDiscountAmount(screening));
+    }
+
+    public void changeDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
     }
 }
